@@ -1,36 +1,35 @@
 package controller;
 
-
-
 import model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.QuestionService;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/exam/java")
 public class JavaQuestionController {
-    private final QuestionService questionService;
+
+    private final QuestionService service;
 
     @Autowired
-    public JavaQuestionController(QuestionService questionService) {
-        this.questionService = questionService;
-    }
-
-    @GetMapping("")
-    public List<Question> getAllQuestions() {
-        return questionService.getAllQuestions();
+    public JavaQuestionController(QuestionService service) {
+        this.service = service;
     }
 
     @PostMapping("/add")
-    public void addQuestion(@RequestParam String question, @RequestParam String answer) {
-        questionService.addQuestion(new Question(question, answer));
+    public Question addQuestion(@RequestParam String question, @RequestParam String answer) {
+        return service.add(question, answer);
+    }
+
+    @GetMapping("")
+    public Collection<Question> getQuestions() {
+        return service.getAll();
     }
 
     @DeleteMapping("/remove")
-    public void removeQuestion(@RequestParam String question, @RequestParam String answer) {
-        questionService.removeQuestion(new Question(question, answer));
+    public Question removeQuestion(@RequestParam String question, @RequestParam String answer) {
+        return service.remove(new Question(question, answer));
     }
 }

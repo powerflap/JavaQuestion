@@ -1,16 +1,12 @@
 package service.impl;
 
-
-
 import model.Question;
 import repository.QuestionRepository;
 import service.QuestionService;
 
-import java.util.List;
+import java.util.*;
 
-
-
-public class JavaQuestionService implements QuestionService {
+public abstract class JavaQuestionService implements QuestionService {
     private final QuestionRepository repository;
 
     public JavaQuestionService(QuestionRepository repository) {
@@ -19,8 +15,7 @@ public class JavaQuestionService implements QuestionService {
     }
 
     private void initializeWithSampleQuestions() {
-        repository.addQuestion(new Question("Что такое полиморфизм?", "Способность объекта реагировать на одно и то же сообщение по-разному."));
-        repository.addQuestion(new Question("Какой тип цикла гарантированно исполнится хотя бы один раз?", "do-while"));
+        repository.addQuestion(new Question("Что такое полиморфизм?", "Способность объекта реагировать на одно и то же сообщение по-разному."));repository.addQuestion(new Question("Какой тип цикла гарантированно исполнится хотя бы один раз?", "do-while"));
         repository.addQuestion(new Question("Назовите ключевое слово для создания анонимного внутреннего класса.", "new"));
         repository.addQuestion(new Question("Что такое instanceof?", "Оператор для проверки принадлежности объекта классу или интерфейсу."));
         repository.addQuestion(new Question("Что такое наследование?", "Механизм повторного использования кода путем создания новых классов на основе существующих."));
@@ -57,18 +52,27 @@ public class JavaQuestionService implements QuestionService {
         repository.addQuestion(new Question("Какой класс реализован для безопасной блокировки ресурсов?", "ReentrantLock."));
     }
 
-    @Override
-    public List<Question> getAllQuestions() {
+    public Question add(String question, String answer) {
+        Question newQuestion = new Question(question, answer);
+        repository.addQuestion(newQuestion);
+        return newQuestion;
+    }
+
+    public Question add(Question question) {
+        repository.addQuestion(question);
+        return question;
+    }
+
+
+    public Question remove(Question question) {
+        repository.removeQuestion(question);
+        return question;
+    }
+
+    public Collection<Question> getAll() {
         return repository.findAll();
     }
 
-    @Override
-    public void addQuestion(Question question) {
-        repository.addQuestion(question);
-    }
-
-    @Override
-    public void removeQuestion(Question question) {
-        repository.removeQuestion(question);
-    }
-}
+    public Question getRandomQuestion() {
+        return null;
+    }}
