@@ -1,10 +1,10 @@
-package service.impl;
+package test;
 
 import model.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.stubbing.OngoingStubbing;
 import repository.QuestionRepository;
+import service.impl.JavaQuestionService;
 
 import java.util.*;
 
@@ -58,7 +58,7 @@ class JavaQuestionServiceTest {
     @Test
     void removeQuestionShouldReturnQuestion() {
         Question q = new Question("Q3", "A3");
-        OngoingStubbing<T> tOngoingStubbing = when(repository.removeQuestion(q)).thenReturn(q);
+        when(repository.removeQuestion(q)).thenReturn(q)
         Question result = service.remove(q);
         assertEquals(q, result);
         verify(repository).removeQuestion(q);
