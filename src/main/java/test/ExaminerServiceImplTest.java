@@ -1,9 +1,10 @@
-package service.impl;
+package test;
 
 import model.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import service.QuestionService;
+import service.impl.ExaminerServiceImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
